@@ -14,7 +14,7 @@ describe('Campaign Contract', () => {
 
   beforeEach(async () => {
     campaignFactory = await deployContract(account0, CampaignFactory, []);
-    campaign = await deployContract(account0, Campaign, [utils.parseEther('0.1')]);
+    campaign = await deployContract(account0, Campaign, [utils.parseEther('0.1'), account0.address]);
     await campaign.deployed();
   });
 

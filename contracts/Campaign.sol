@@ -8,7 +8,7 @@ contract CampaignFactory {
     address[] public deployedCampaigns;
 
     function createCampaign(uint256 _minimum) public {
-        address newCampaign = address(new Campaign(_minimum));
+        address newCampaign = address(new Campaign(_minimum, msg.sender));
         deployedCampaigns.push(newCampaign);
     }
 
@@ -37,9 +37,9 @@ contract Campaign {
     mapping(address => bool) public approvers;
     mapping(uint256 => Request) public requests;
 
-    constructor(uint256 _minimum) {
+    constructor(uint256 _minimum, address _manager) {
+        manager = _manager;
         minimumContribution = _minimum;
-        manager = msg.sender;
     }
 
     modifier onlyManager() {
