@@ -1,15 +1,5 @@
-# Basic Sample Hardhat Project
+Learning how to test with ethers.js.
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+campaign/test/sample-test.js
 
-Try running some of the following tasks:
-
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+Campaign.sol is a blockchain remodel of KickStarter. This contract was written by Stephen Grider on an Udemy course. Did some rewriting to fix a few bugs and make it compatible with solidity compiler version 0.8.10.
