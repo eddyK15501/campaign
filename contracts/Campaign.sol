@@ -1,6 +1,6 @@
 //SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.10;
 
 import "hardhat/console.sol";
 
@@ -53,9 +53,6 @@ contract Campaign {
             "Not enough contributed to be an approver"
         );
 
-        console.log("msg.value: ", msg.value);
-        console.log("msg.sender: ", msg.sender);
-
         approvers[msg.sender] = true;
         approversCount++;
     }
@@ -80,6 +77,9 @@ contract Campaign {
         require(approvers[msg.sender], "You are not approved");
         require(!request.approvals[msg.sender], "Already voted");
 
+        console.log("msg.sender: ", msg.sender);
+        console.log("Request approvals should be false: ", request.approvals[msg.sender]);
+
         request.approvals[msg.sender] = true;
         request.approvalCount++;
     }
@@ -89,7 +89,9 @@ contract Campaign {
         require(request.approvalCount >= (approversCount / 2));
         require(!request.complete);
 
-        request.recipient.transfer(request.value);
+        (bool success,) = request.recipient.call{value: address(this).balance}("");
+        require(success, "Failed to send Ether");
+
         request.complete = true;
     }
 
